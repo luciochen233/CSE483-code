@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <TextBox x:Name="WB1" HorizontalAlignment="Left" Height="25" Margin="80,80,0,0" TextWrapping="Wrap" Text="Hello World!" VerticalAlignment="Top" Width="120" FontSize="14"/>
+        <Button x:Name="B1" Content="Translate" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="241,80,0,0" Height="23" Click="B1_Click"/>
+        <ProgressBar x:Name="PB1" HorizontalAlignment="Left" Height="30" Margin="80,300,0,0" VerticalAlignment="Top" Width="568"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="682,300,0,0" VerticalAlignment="Top" Width="68" Height="30" Click="Button_Click"/>
+
     </Grid>
 </Window>

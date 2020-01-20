@@ -24,5 +24,22 @@ namespace Class1
         {
             InitializeComponent();
         }
+
+        private void B1_Click(object sender, RoutedEventArgs e)
+        {
+            if(WB1.Text == "Hello World!")
+            {
+                WB1.Text = "你好世界";
+            }
+            else
+            {
+                WB1.Text = "Hello World!";
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            PB1.Value += (99 - PB1.Value)/10;
+        }
     }
 }
