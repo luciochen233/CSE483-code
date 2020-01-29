@@ -1,7 +1,6 @@
 ﻿/////////////////////////////////////////////////////////////////////////////////////////////////////
 // CSE483 Set Class
 // Author - Graduate Student
-//
 // Simple Set class
 
 using System;
@@ -12,7 +11,6 @@ using System.Text;
 /// <summary>
 /// The IntegerSet class contains members and methods which encapsulate an actual mathematical set.
 /// </summary>
-/// 
 
 namespace MyIntegerSet
 {
@@ -49,7 +47,7 @@ namespace MyIntegerSet
         public IntegerSet(bool[] val)
             : this()
         {
-            int i = 0;
+            int i = 0; // the index for tracking
             foreach (bool temp in val)
             {
                 try
@@ -58,18 +56,11 @@ namespace MyIntegerSet
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("exception occured");
+                    Console.WriteLine("\nError!! The input array is too big\n");
                     break;
                 }
-                
                 i++;
-                //if (i == 101)
-                //{
-                //    throw new System.IndexOutOfRangeException();
-                //    return;
-                //}
             }
-			//TODO Write this constructor
         }
 
 
@@ -82,8 +73,7 @@ namespace MyIntegerSet
         {
             // TODO Write the Union Method
             // Must use foreach
-            // Must use exception handling
-            
+            // Must use exception handling     
             try
             {
                 bool[] _tempSet = new bool[101];
@@ -99,7 +89,7 @@ namespace MyIntegerSet
             {
                 Console.WriteLine(e);
             }
-            return new IntegerSet();
+            return new IntegerSet(); //if something happened, create a new empty set and return it
         }
 
         /// <summary>
@@ -127,7 +117,7 @@ namespace MyIntegerSet
             {
                 Console.WriteLine(e);
             }
-            return new IntegerSet();
+            return new IntegerSet(); //if something happened, create a new empty set and return it
         }
 
         /// <summary>
