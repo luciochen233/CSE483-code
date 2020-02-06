@@ -1,0 +1,19 @@
+﻿<Window x:Class="SimpleDataBindingDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimpleDataBindingDemo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="250" Width="450">
+    <Grid>
+        <TextBox x:Name="Top_TextBox" HorizontalAlignment="Left" Height="23" Margin="36,22,0,0" TextWrapping="Wrap" Text="{Binding Path=TopTextBoxText}" Background="{Binding Path=TopBoxBackground}" VerticalAlignment="Top" Width="259" KeyDown="Top_TextBox_KeyDown" />
+        <TextBox x:Name="Bottom_TextBox" HorizontalAlignment="Left" Height="23" Margin="36,70,0,0" TextWrapping="Wrap" Text="{Binding Path=BottomTextBoxText}" Background="{Binding Path=BottomBoxBackground}" VerticalAlignment="Top" Width="259" KeyDown="Bottom_TextBox_KeyDown"/>
+        <Button x:Name="Update_TextBox" Content="Update" HorizontalAlignment="Left" Margin="321,42,0,0" VerticalAlignment="Top" Width="75" Click="Update_TextBox_Click"/>
+        <Button x:Name="Exit_Button" Content="Exit" HorizontalAlignment="Left" Margin="321,170,0,0" VerticalAlignment="Top" Width="75" Click="Exit_Button_Click"/>
+        <Button x:Name="Red_Button" Content="" HorizontalAlignment="Left" Margin="36,129,0,0" VerticalAlignment="Top" Width="75" Background="Red" Click="Color_Button_Click"/>
+        <Button x:Name="Green_Button" Content="" HorizontalAlignment="Left" Margin="128,129,0,0" VerticalAlignment="Top" Width="75" Background="Lime" Click="Color_Button_Click"/>
+        <Button x:Name="Blue_Button" Content="" HorizontalAlignment="Left" Margin="220,129,0,0" VerticalAlignment="Top" Width="75" Background="Blue" Click="Color_Button_Click"/>
+
+    </Grid>
+</Window>

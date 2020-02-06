@@ -1,0 +1,18 @@
+﻿<Window x:Class="Class4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Class4"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="400">
+    <Grid>
+        <TextBox x:Name="TopBox" HorizontalAlignment="Left" Height="23" Margin="50,70,0,0" TextWrapping="Wrap" Text="{Binding Path=TopBoxText}" VerticalAlignment="Top" Width="120" KeyDown="TopBox_KeyDown"/>
+        <TextBox x:Name="BotBox" HorizontalAlignment="Left" Height="23" Margin="50,170,0,0" TextWrapping="Wrap" Text="{Binding Path=BotBoxText}" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="Bcopy" Content="Copy Text" HorizontalAlignment="Left" Margin="200,70,0,0" VerticalAlignment="Top" Width="75" Click="Bcopy_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="50,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="From"/><LineBreak/><Run/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="50,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="To"/>
+        <Button x:Name="Bexit" Content="Exit" HorizontalAlignment="Left" Margin="308,240,0,0" VerticalAlignment="Top" Width="75" Click="Bexit_Click"/>
+
+    </Grid>
+</Window>
