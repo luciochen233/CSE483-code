@@ -5,24 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project2"
         mc:Ignorable="d"
-        Title="SimpleCalculator" Height="400" Width="600" Loaded="MainWindow1_Loaded">
+        Title="SimpleCalculator" Height="400" Width="600">
     <Grid>
-        <Button x:Name="Bplus" Content="+" HorizontalAlignment="Left" Margin="160,135,0,0" VerticalAlignment="Top" Width="75" Click="Bplus_Click"/>
-        <Button x:Name="Bminus" Content="-" HorizontalAlignment="Left" Margin="160,175,0,0" VerticalAlignment="Top" Width="75" Click="Bminus_Click"/>
-        <Button x:Name="Btimes" Content="x" HorizontalAlignment="Left" Margin="160,215,0,0" VerticalAlignment="Top" Width="75" Click="Btimes_Click"/>
-        <Button x:Name="Bdivide" Content="/" HorizontalAlignment="Left" Margin="160,255,0,0" VerticalAlignment="Top" Width="75" Click="Bdivide_Click"/>
+        <Button x:Name="Bplus" Content="+" HorizontalAlignment="Left" Margin="160,135,0,0" VerticalAlignment="Top" Width="75" Click="Operation_Button_Click"/>
+        <Button x:Name="Bminus" Content="-" HorizontalAlignment="Left" Margin="160,175,0,0" VerticalAlignment="Top" Width="75" Click="Operation_Button_Click"/>
+        <Button x:Name="Btimes" Content="x" HorizontalAlignment="Left" Margin="160,215,0,0" VerticalAlignment="Top" Width="75" Click="Operation_Button_Click"/>
+        <Button x:Name="Bdivide" Content="/" HorizontalAlignment="Left" Margin="160,255,0,0" VerticalAlignment="Top" Width="75" Click="Operation_Button_Click"/>
         <TextBlock HorizontalAlignment="Left" Margin="70,70,0,0" TextWrapping="Wrap" Text="1st Num" VerticalAlignment="Top"/>
-        <TextBox x:Name="Input1" HorizontalAlignment="Left" Height="23" Margin="70,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="Input1" HorizontalAlignment="Left" Height="23" Margin="70,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Text="{Binding Path=LeftNum}"/>
         <TextBlock HorizontalAlignment="Left" Margin="250,70,0,0" TextWrapping="Wrap" Text="2st Num" VerticalAlignment="Top" Height="16" Width="58"/>
-        <TextBox x:Name="Input2" HorizontalAlignment="Left" Height="23" Margin="250,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="Input2" HorizontalAlignment="Left" Height="23" Margin="250,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Text="{Binding Path=RightNum}"/>
         <Button x:Name="Bexit" Content="Exit" HorizontalAlignment="Left" Margin="490,330,0,0" VerticalAlignment="Top" Width="75" Click="Bexit_Click"/>
         <Button x:Name="Bequal" Content="=" HorizontalAlignment="Left" Margin="350,96,0,0" VerticalAlignment="Top" Width="75" Click="Bequal_Click"/>
         <TextBlock HorizontalAlignment="Left" Margin="455,70,0,0" TextWrapping="Wrap" Text="Result" VerticalAlignment="Top" Height="16" Width="58"/>
-        <TextBox x:Name="Result" HorizontalAlignment="Left" Height="23" Margin="455,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="Result" HorizontalAlignment="Left" Height="23" Margin="455,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Text="{Binding Path=Result}"/>
         <Button x:Name="Bclear" Content="Clear" HorizontalAlignment="Left" Margin="350,135,0,0" VerticalAlignment="Top" Width="75" Click="Bclear_Click"/>
-        <TextBox x:Name="Text_operation" HorizontalAlignment="Left" Height="23" Margin="160,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="Text_operation" HorizontalAlignment="Left" Height="23" Margin="160,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Text="{Binding Path=Operation}"/>
         <TextBlock HorizontalAlignment="Left" Margin="160,55,0,0" TextWrapping="Wrap" Text="Current Operation" VerticalAlignment="Top" Height="32" Width="58"/>
-        <TextBlock x:Name="Text_error" HorizontalAlignment="Left" Margin="70,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="355" Height="51" Foreground="Black"/>
+        <TextBlock x:Name="Text_error" HorizontalAlignment="Left" Margin="70,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="355" Height="51" Foreground="Red" Text="{Binding Path=ErrMsg}"/>
 
     </Grid>
 </Window>
