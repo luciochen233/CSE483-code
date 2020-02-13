@@ -16,7 +16,7 @@ namespace MyIntegerSet
 {
     public class IntegerSet
     {
-        public const UInt32 _size = 256;
+        public const uint _size = 65535;
         /// <summary>
         /// The private set of bools which make up the integer set.
         /// </summary>
@@ -39,7 +39,7 @@ namespace MyIntegerSet
         {
             Console.Write("\n  IntegerSet Constructed");
             _set = new bool[_size];
-            for (int i = 0; i < 101; i++)
+            for (uint i = 0; i < _size; i++)
             {
                 _set[i] = false;
             }
@@ -48,7 +48,7 @@ namespace MyIntegerSet
         public IntegerSet(bool[] val)
             : this()
         {
-            int i = 0; // the index for tracking
+            uint i = 0; // the index for tracking
             foreach (bool temp in val)
             {
                 try
@@ -78,7 +78,7 @@ namespace MyIntegerSet
             try
             {
                 bool[] _tempSet = new bool[_size];
-                int i = 0;
+                uint i = 0;
                 foreach (bool temp in otherSet.Set)
                 {
                     _tempSet[i] = _set[i] || temp;
@@ -106,7 +106,7 @@ namespace MyIntegerSet
             try
             {
                 bool[] _tempSet = new bool[_size];
-                int i = 0;
+                uint i = 0;
                 foreach (bool temp in otherSet.Set)
                 {
                     _tempSet[i] = _set[i] && temp;
@@ -125,7 +125,7 @@ namespace MyIntegerSet
         /// This function inserts an element into an IntegerSet object by setting it to true.
         /// </summary>
         /// <param name="k">The element to be added.</param>
-        public void InsertElement(int k)
+        public void InsertElement(UInt32 k)
         {
             try
             {
@@ -141,7 +141,7 @@ namespace MyIntegerSet
         /// This function deletes an element from an IntegerSet object by setting it to false.
         /// </summary>
         /// <param name="k">The element to be deleted.</param>
-        public void DeleteElement(int k)
+        public void DeleteElement(UInt32 k)
         {
             try
             {
@@ -162,14 +162,14 @@ namespace MyIntegerSet
         {
             string resultString = string.Empty;
 
-            for (int i = 0; i < _set.Length; i++)
+            for (uint i = 0; i < _set.Length; i++)
             {
                 if (_set[i])
                 {
                     resultString = resultString + i + ", ";
                 }
             }
-            resultString.Trim(',');
+            resultString = resultString.TrimEnd(',',' ');
             return resultString;
         }
 
@@ -181,7 +181,7 @@ namespace MyIntegerSet
         public bool IsEqualTo(IntegerSet otherSet)
         {
             bool result = true;
-            int counter = 0;
+            uint counter = 0;
 
             foreach (bool value in otherSet.Set)
             {
@@ -199,7 +199,7 @@ namespace MyIntegerSet
         /// <returns> nothing
         public void Clear()
         {
-            for (int i = 0; i < _set.Length; i++)
+            for (uint i = 0; i < _set.Length; i++)
             {
                 _set[i] = false;
             }

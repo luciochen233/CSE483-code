@@ -7,11 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="400" Width="600">
     <Grid>
-        <TextBox x:Name="Bin1" HorizontalAlignment="Left" Height="23" Margin="84,89,0,0" TextWrapping="Wrap" Text="{Binding Path=In1Text}" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="Bin2" HorizontalAlignment="Left" Height="23" Margin="84,142,0,0" TextWrapping="Wrap" Text="{Binding Path=In2Text}" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="Bunion" HorizontalAlignment="Left" Height="23" Margin="314,89,0,0" TextWrapping="Wrap" Text="{Binding Path=UnionText}" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="Binter" HorizontalAlignment="Left" Height="23" Margin="314,142,0,0" TextWrapping="Wrap" Text="{Binding Path=InterText}" VerticalAlignment="Top" Width="120"/>
-        <TextBlock x:Name="ERR" HorizontalAlignment="Left" Margin="84,282,0,0" TextWrapping="Wrap" Text="{Binding Path=ErrText}" VerticalAlignment="Top" Height="78" Width="350"/>
+        <TextBox x:Name="Bin1" HorizontalAlignment="Left" Height="23" Margin="80,90,0,0" TextWrapping="Wrap" Text="{Binding Path=In1Text}" VerticalAlignment="Top" Width="150"/>
+        <TextBox x:Name="Bin2" HorizontalAlignment="Left" Height="23" Margin="80,140,0,0" TextWrapping="Wrap" Text="{Binding Path=In2Text}" VerticalAlignment="Top" Width="150"/>
+        <TextBox x:Name="Bunion" HorizontalAlignment="Left" Height="23" Margin="350,90,0,0" TextWrapping="Wrap" Text="{Binding Path=UnionText}" VerticalAlignment="Top" Width="150"/>
+        <TextBox x:Name="Binter" HorizontalAlignment="Left" Height="23" Margin="350,140,0,0" TextWrapping="Wrap" Text="{Binding Path=InterText}" VerticalAlignment="Top" Width="150"/>
+        <TextBlock x:Name="ERR" HorizontalAlignment="Left" Margin="80,222,0,0" TextWrapping="Wrap" Text="{Binding Path=ErrText}" VerticalAlignment="Top" Height="78" Width="420"/>
+        <Button x:Name="But1" Content="Compute" HorizontalAlignment="Left" Margin="250,115,0,0" VerticalAlignment="Top" Width="80" Click="But1_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="350,70,0,0" TextWrapping="Wrap" Text="Union" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="350,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" Text="Intersection"/>
+        <TextBlock HorizontalAlignment="Left" Margin="80,70,0,0" TextWrapping="Wrap" Text="Input 1" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="80,120,0,0" TextWrapping="Wrap" Text="Input 1" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

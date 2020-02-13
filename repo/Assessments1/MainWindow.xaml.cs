@@ -27,5 +27,10 @@ namespace Assessments1
             _myModel = new Model();
             this.DataContext = _myModel;
         }
+
+        private void But1_Click(object sender, RoutedEventArgs e)
+        {
+            _myModel.Convert();
+        }
     }
 }

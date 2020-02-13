@@ -4,15 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using MyIntegerSet;
 
 namespace Assessments1
 {
     class Model : INotifyPropertyChanged
     {
+        IntegerSet _s1 = new IntegerSet();
+        IntegerSet _s2 = new IntegerSet();
         public Model()
         {
-            In1Text = " lucio ";
-            In2Text = " hello ";
+            In1Text = "1,2,3,4,5,6";
+            In2Text = "4,5,6,7,8,9,10";
             UnionText = "Union";
             InterText = "Intersection";
             ErrText = "Error Message";
@@ -72,6 +75,49 @@ namespace Assessments1
                 _err = value;
                 OnPropertyChanged("ErrText");
             }
+        }
+        public void Convert()
+        {
+            string[] arr1 = In1Text.Split(',');
+            string[] arr2 = In2Text.Split(',');
+            foreach (string i in arr1)
+            {
+                try
+                {
+                    if (i == "") continue;
+                    uint j = uint.Parse(i);
+                    _s1.InsertElement(j);
+                }
+                catch(Exception e)
+                {
+                    ErrText = e.Message;
+                    UnionText = "";
+                    InterText = "";
+                    return;
+                }
+            }
+
+            foreach (string i in arr2)
+            {
+                try
+                {
+                    if (i == "") continue;
+                    uint j = uint.Parse(i);
+                    _s2.InsertElement(j);
+                }
+                catch (Exception e)
+                {
+                    ErrText = e.Message;
+                    UnionText = "";
+                    InterText = "";
+                    return;
+                }
+            }
+            ErrText = "";
+            IntegerSet inter = _s1.Intersection(_s2);
+            IntegerSet uni   = _s1.Union(_s2);
+            UnionText = uni.ToString();
+            InterText = inter.ToString();
         }
 
 
