@@ -80,6 +80,8 @@ namespace Assessments1
         {
             string[] arr1 = In1Text.Split(',');
             string[] arr2 = In2Text.Split(',');
+            _s1.Clear();
+            _s1.Clear();
             foreach (string i in arr1)
             {
                 try
@@ -91,6 +93,7 @@ namespace Assessments1
                 catch(Exception e)
                 {
                     ErrText = e.Message;
+                    _s1.Clear();
                     UnionText = "";
                     InterText = "";
                     return;
@@ -108,6 +111,7 @@ namespace Assessments1
                 catch (Exception e)
                 {
                     ErrText = e.Message;
+                    _s1.Clear();
                     UnionText = "";
                     InterText = "";
                     return;
