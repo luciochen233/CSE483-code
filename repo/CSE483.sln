@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Class4", "Class4\Class4.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleDataBindingDemo", "SimpleDataBindingDemo\SimpleDataBindingDemo.csproj", "{FCE661A7-9A33-4D74-874E-C31D1CFD7576}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assessments1", "Assessments1\Assessments1.csproj", "{94EF9916-9913-460F-973B-9DAF0E72CA6C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{FCE661A7-9A33-4D74-874E-C31D1CFD7576}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCE661A7-9A33-4D74-874E-C31D1CFD7576}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCE661A7-9A33-4D74-874E-C31D1CFD7576}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94EF9916-9913-460F-973B-9DAF0E72CA6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94EF9916-9913-460F-973B-9DAF0E72CA6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94EF9916-9913-460F-973B-9DAF0E72CA6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94EF9916-9913-460F-973B-9DAF0E72CA6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
