@@ -11,12 +11,12 @@
         <TextBox x:Name="Bin2" HorizontalAlignment="Left" Height="23" Margin="80,140,0,0" TextWrapping="Wrap" Text="{Binding Path=In2Text}" VerticalAlignment="Top" Width="150"/>
         <TextBox x:Name="Bunion" HorizontalAlignment="Left" Height="23" Margin="350,90,0,0" TextWrapping="Wrap" Text="{Binding Path=UnionText}" VerticalAlignment="Top" Width="150"/>
         <TextBox x:Name="Binter" HorizontalAlignment="Left" Height="23" Margin="350,140,0,0" TextWrapping="Wrap" Text="{Binding Path=InterText}" VerticalAlignment="Top" Width="150"/>
-        <TextBlock x:Name="ERR" HorizontalAlignment="Left" Margin="80,222,0,0" TextWrapping="Wrap" Text="{Binding Path=ErrText}" VerticalAlignment="Top" Height="78" Width="420"/>
+        <TextBlock x:Name="ERR" HorizontalAlignment="Left" Margin="80,222,0,0" TextWrapping="Wrap" Text="{Binding Path=ErrText}" VerticalAlignment="Top" Height="78" Width="420" Foreground="#FFFF1414"/>
         <Button x:Name="But1" Content="Compute" HorizontalAlignment="Left" Margin="250,115,0,0" VerticalAlignment="Top" Width="80" Click="But1_Click"/>
         <TextBlock HorizontalAlignment="Left" Margin="350,70,0,0" TextWrapping="Wrap" Text="Union" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="350,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" Text="Intersection"/>
         <TextBlock HorizontalAlignment="Left" Margin="80,70,0,0" TextWrapping="Wrap" Text="Input 1" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="80,120,0,0" TextWrapping="Wrap" Text="Input 1" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="80,120,0,0" TextWrapping="Wrap" Text="Input 2" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

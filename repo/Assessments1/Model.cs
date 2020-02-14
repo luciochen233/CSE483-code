@@ -10,8 +10,8 @@ namespace Assessments1
 {
     class Model : INotifyPropertyChanged
     {
-        IntegerSet _s1 = new IntegerSet();
-        IntegerSet _s2 = new IntegerSet();
+        IntegerSet _s1 = new IntegerSet(65536);
+        IntegerSet _s2 = new IntegerSet(65536);
         public Model()
         {
             In1Text = "1,2,3,4,5,6";
@@ -21,7 +21,7 @@ namespace Assessments1
             ErrText = "Error Message";
 
         }
-
+        #region Getter ans Setter
         private string _in1;
         public string In1Text
         {
@@ -76,23 +76,30 @@ namespace Assessments1
                 OnPropertyChanged("ErrText");
             }
         }
+        #endregion
         public void Convert()
         {
             string[] arr1 = In1Text.Split(',');
             string[] arr2 = In2Text.Split(',');
             _s1.Clear();
             _s1.Clear();
+            ErrText = "";
             foreach (string i in arr1)
             {
                 try
                 {
                     if (i == "") continue;
                     uint j = uint.Parse(i);
+                    if(j > 65535)
+                    {
+                        throw new Exception("Number Exceed max value!");
+                    }
                     _s1.InsertElement(j);
                 }
                 catch(Exception e)
                 {
-                    ErrText = e.Message;
+
+                    ErrText += e.Message;
                     _s1.Clear();
                     UnionText = "";
                     InterText = "";
@@ -106,25 +113,29 @@ namespace Assessments1
                 {
                     if (i == "") continue;
                     uint j = uint.Parse(i);
+                    if (j > 65535)
+                    {
+                        throw new Exception("Number Exceed max value!");
+                    }
                     _s2.InsertElement(j);
                 }
                 catch (Exception e)
                 {
-                    ErrText = e.Message;
+                    ErrText += e.Message;
                     _s1.Clear();
                     UnionText = "";
                     InterText = "";
                     return;
                 }
             }
-            ErrText = "";
+            
             IntegerSet inter = _s1.Intersection(_s2);
             IntegerSet uni   = _s1.Union(_s2);
             UnionText = uni.ToString();
             InterText = inter.ToString();
         }
 
-
+        #region Data Binding Stuff
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
@@ -133,5 +144,6 @@ namespace Assessments1
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+        #endregion
     }
 }

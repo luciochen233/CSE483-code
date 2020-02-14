@@ -48,9 +48,10 @@ namespace Project3
                         break;
                     case enumShapeType.TRIANGLE:
                         Polygon temp = new Polygon();
+                        int temp_len = randomNumber.Next(10, 25);
                         //10,110 60,10 110,110
                         System.Windows.Point Point1 = new System.Windows.Point(0, 0);
-                        System.Windows.Point Point2 = new System.Windows.Point(10, 0);
+                        System.Windows.Point Point2 = new System.Windows.Point(base, 0);
                         System.Windows.Point Point3 = new System.Windows.Point(7, 7);
                         PointCollection myPointCollection = new PointCollection
                         {
