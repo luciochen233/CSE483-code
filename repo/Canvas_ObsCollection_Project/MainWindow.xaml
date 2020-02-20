@@ -33,6 +33,22 @@
             </ItemsControl>
         </Canvas>
         <Canvas Name="BottomCanvas" Background="DarkSalmon" Height="210" VerticalAlignment="Top" Margin="0,260,0,0">
+            <ItemsControl Name="MyRound">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:Name="RoundTemplate">
+                        <Canvas VerticalAlignment="Top">
+                            <Ellipse
+                                Fill="{Binding Fill}"
+                                Stroke="Black"
+                                Height="{Binding Height}"
+                                Width="{Binding Width}"
+                                Canvas.Top="{Binding CanvasTop}"
+                                Canvas.Left ="{Binding CanvasLeft}">
+                            </Ellipse>
+                        </Canvas>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Canvas>
     </Grid>
 </Window>

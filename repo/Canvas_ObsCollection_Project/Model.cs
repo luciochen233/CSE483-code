@@ -20,6 +20,7 @@ namespace Canvas_ObsCollection_Project
     {
         // provide an observable collections for shapes
         public ObservableCollection<MyShape> RectCollection;
+        public ObservableCollection<MyShape> RoundCollection;
         public event PropertyChangedEventHandler PropertyChanged;
         public void InitModel(UInt32 height, UInt32 width)
         {
@@ -29,6 +30,7 @@ namespace Canvas_ObsCollection_Project
 
             // place them manually at the top of the item collection in the view
             RectCollection = new ObservableCollection<MyShape>();
+            RoundCollection = new ObservableCollection<MyShape>();
 
             ResetRectangles();
         }
@@ -60,7 +62,8 @@ namespace Canvas_ObsCollection_Project
         {
 
             shape.Height = randomNumber.Next(10, 50);
-            shape.Width = shape.Height;
+            //shape.Width = shape.Height;
+            shape.Width = randomNumber.Next(10, 50);
             SolidColorBrush mySolidColorBrush = new SolidColorBrush();
 
             // Describes the brush's color using RGB values. 
@@ -75,12 +78,17 @@ namespace Canvas_ObsCollection_Project
         public void ResetRectangles()
         {
             RectCollection.Clear();
+            RoundCollection.Clear();
 
             for (int rects = 0; rects < _numRects; rects++)
             {
                 MyShape temp = new MyShape();
                 SetRandomShapes(temp);
                 RectCollection.Add(temp);
+
+                MyShape temp2 = new MyShape();
+                SetRandomShapes(temp2);
+                RoundCollection.Add(temp2);
             }
         }
 

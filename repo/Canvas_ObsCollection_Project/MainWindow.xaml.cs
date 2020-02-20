@@ -35,6 +35,7 @@ namespace Canvas_ObsCollection_Project
 
             // associate ItemControl with collection
             MyRectangles.ItemsSource = _model.RectCollection;
+            MyRound.ItemsSource = _model.RoundCollection;
         }
 
         private void RestartButton_Click(object sender, RoutedEventArgs e)
