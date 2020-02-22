@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObservableCollectionsDemo",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Canvas_ObsCollection_Project", "Canvas_ObsCollection_Project\Canvas_ObsCollection_Project.csproj", "{FCC4C1C0-AA6C-4858-BCBA-3C2CCDE49102}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe", "TicTacToe\TicTacToe.csproj", "{9B321583-A250-487B-B997-1A998C507596}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{FCC4C1C0-AA6C-4858-BCBA-3C2CCDE49102}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCC4C1C0-AA6C-4858-BCBA-3C2CCDE49102}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCC4C1C0-AA6C-4858-BCBA-3C2CCDE49102}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B321583-A250-487B-B997-1A998C507596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B321583-A250-487B-B997-1A998C507596}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B321583-A250-487B-B997-1A998C507596}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B321583-A250-487B-B997-1A998C507596}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
