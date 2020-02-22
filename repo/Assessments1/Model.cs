@@ -98,7 +98,6 @@ namespace Assessments1
                 }
                 catch(Exception e)
                 {
-
                     ErrText += e.Message;
                     _s1.Clear();
                     UnionText = "";
