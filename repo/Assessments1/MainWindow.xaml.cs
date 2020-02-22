@@ -26,12 +26,18 @@ namespace Assessments1
             InitializeComponent();
             _myModel = new Model();
             this.DataContext = _myModel;
-            //toolTip1.SetToolTip(button1, "Save changes");
         }
 
         private void But1_Click(object sender, RoutedEventArgs e)
         {
             _myModel.Convert();
+        }
+
+        private void Union_Intersection_Loaded(object sender, RoutedEventArgs e)
+        {
+            ToolTip toolTip1 = new ToolTip();
+            toolTip1.Content = "Input number seperated with , the max value is 100";
+            Bin1.ToolTip = toolTip1;
         }
     }
 }
