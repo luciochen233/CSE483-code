@@ -26,6 +26,7 @@ namespace Assessments1
             InitializeComponent();
             _myModel = new Model();
             this.DataContext = _myModel;
+            //toolTip1.SetToolTip(button1, "Save changes");
         }
 
         private void But1_Click(object sender, RoutedEventArgs e)

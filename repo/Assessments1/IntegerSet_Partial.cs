@@ -16,7 +16,7 @@ namespace MyIntegerSet
 {
     public class IntegerSet
     {
-        private uint _size = 4096;
+        private uint _size;
         /// <summary>
         /// The private set of bools which make up the integer set.
         /// </summary>
@@ -37,18 +37,8 @@ namespace MyIntegerSet
         /// </summary>
         public IntegerSet()
         {
+            _size = 101;
             Console.Write("\n  IntegerSet Constructed");
-            _set = new bool[_size];
-            for (uint i = 0; i < _size; i++)
-            {
-                _set[i] = false;
-            }
-        }
-
-        public IntegerSet(uint size)
-        {
-            Console.Write("\n  IntegerSet Constructed");
-            _size = size;
             _set = new bool[_size];
             for (uint i = 0; i < _size; i++)
             {

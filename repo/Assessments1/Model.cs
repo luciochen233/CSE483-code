@@ -10,15 +10,15 @@ namespace Assessments1
 {
     class Model : INotifyPropertyChanged
     {
-        IntegerSet _s1 = new IntegerSet(65536);
-        IntegerSet _s2 = new IntegerSet(65536);
+        IntegerSet _s1 = new IntegerSet();
+        IntegerSet _s2 = new IntegerSet();
         public Model()
         {
             In1Text = "1,2,3,4,5,6";
             In2Text = "4,5,6,7,8,9,10";
             UnionText = "Union";
             InterText = "Intersection";
-            ErrText = "Error Message";
+            ErrText = "Error message goes here";
 
         }
         #region Getter ans Setter
@@ -82,7 +82,7 @@ namespace Assessments1
             string[] arr1 = In1Text.Split(',');
             string[] arr2 = In2Text.Split(',');
             _s1.Clear();
-            _s1.Clear();
+            _s2.Clear();
             ErrText = "";
             foreach (string i in arr1)
             {
@@ -90,7 +90,7 @@ namespace Assessments1
                 {
                     if (i == "") continue;
                     uint j = uint.Parse(i);
-                    if(j > 65535)
+                    if(j > 100)
                     {
                         throw new Exception("Number Exceed max value!");
                     }
@@ -113,7 +113,7 @@ namespace Assessments1
                 {
                     if (i == "") continue;
                     uint j = uint.Parse(i);
-                    if (j > 65535)
+                    if (j > 100)
                     {
                         throw new Exception("Number Exceed max value!");
                     }
@@ -122,7 +122,7 @@ namespace Assessments1
                 catch (Exception e)
                 {
                     ErrText += e.Message;
-                    _s1.Clear();
+                    _s2.Clear();
                     UnionText = "";
                     InterText = "";
                     return;
