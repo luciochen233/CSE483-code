@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 // INotifyPropertyChanged
 using System.ComponentModel;
 
 // Brushes
 using System.Windows.Media;
 
-
-namespace Tile
+namespace TicTacToe
 {
     public class Tile : INotifyPropertyChanged
     {
@@ -26,7 +24,8 @@ namespace Tile
 
         private string _tileName;
         public string TileName
-        {   get { return _tileName; }
+        {
+            get { return _tileName; }
             set
             {
                 _tileName = value;
