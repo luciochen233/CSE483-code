@@ -26,9 +26,8 @@ namespace TicTacToe
             InitializeComponent();
             this.ResizeMode = ResizeMode.NoResize;
             _model = new Model();
-
+            this.DataContext = _model;
             MyItemsControl.ItemsSource = _model.TileCollection;
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -44,8 +43,25 @@ namespace TicTacToe
                 // which we know to be a Tile object
                 // Tile has a TileName (refer to Tile.cs)
                 var currentTile = selectedButton.DataContext as Tile;
-                _model.UserSelection(currentTile.TileName);
+                if (_model.UserSelection(currentTile.TileName))
+                {
+                    _model.Switch_side();
+                    _model.Win();
+                }
             }
+            
         }
+
+        private void Breset_Click(object sender, RoutedEventArgs e)
+        {
+            _model.Clear();
+            _model.StatusText = "RESET";
+        }
+
+        //private void Side_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        //{
+        //    var a = e.NewValue;
+        //    _model.Switch_side(a);
+        //}
     }
 }

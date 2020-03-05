@@ -1,0 +1,41 @@
+﻿<Window x:Name="HomeWindow" x:Class="Ball.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ball"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" MouseMove="HomeWindow_MouseMove" MouseLeftButtonDown="HomeWindow_MouseLeftButtonDown" MouseLeftButtonUp="HomeWindow_MouseLeftButtonUp" MouseRightButtonDown="HomeWindow_MouseRightButtonDown" MouseRightButtonUp="HomeWindow_MouseRightButtonUp">
+    <Grid>
+        <Canvas Name="ScoreCanvas" Background="BurlyWood" Height="100" VerticalAlignment="Top" Margin="0,0,0.333,0"/>
+
+        <Canvas 
+            Name="BallCanvas"
+            VerticalAlignment="Bottom"
+            Height="321"
+            Background="BlanchedAlmond" Margin="0,0,0.333,-0.333">
+            <Ellipse 
+                Canvas.Top="{Binding ballCanvasTop}" 
+                Canvas.Left="{Binding ballCanvasLeft}"  
+                Width="{Binding BallWidth}" 
+                Height="{Binding BallHeight}">
+                <Ellipse.Fill>
+                    <RadialGradientBrush GradientOrigin="0.75,0.25">
+                        <GradientStop Color="Yellow" Offset="0.0" />
+                        <GradientStop Color="Orange" Offset="0.5" />
+                        <GradientStop Color="Red" Offset="1.0" />
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Rectangle
+                Canvas.Top ="{Binding paddleCanvasTop}"
+                Canvas.Left="{Binding paddleCanvasLeft}"
+                Fill="Black"
+                Height="{Binding paddleHeight}"
+                Width="{Binding paddleWidth}">
+            </Rectangle>
+        </Canvas>
+
+
+    </Grid>
+</Window>

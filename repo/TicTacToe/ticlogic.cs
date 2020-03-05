@@ -9,7 +9,9 @@ namespace TicTacToe
     class Ticlogic
     {
         private char[,] _check = new char[3,3];
-
+        bool _end_of_game = false;
+        int _counter = 0;
+        
         public Ticlogic()
         {
             Clear();
@@ -17,8 +19,10 @@ namespace TicTacToe
 
         public bool Mark(char player, int row, int col)
         {
-            if(_check[row,col] == 0)
+            if (_end_of_game) return false;
+            if(_check[row,col] == ' ')
             {
+                _counter++;
                 _check[row, col] = player;
                 return true;
             }
@@ -27,10 +31,15 @@ namespace TicTacToe
 
         public void Clear()
         {
-            for(int i = 0 , j = 0; i< 3; i++, j++)
+            for(int i = 0; i< 3; i++)
             {
-                _check[i,j] = ' ';
+                for(int j = 0; j<3; j++)
+                {
+                    _check[i, j] = ' ';
+                }
             }
+            _end_of_game = false;
+            _counter = 0;
         }
 
         public char CheckWin() // return ' ' when there's no winner
@@ -40,12 +49,12 @@ namespace TicTacToe
             {
                 if(_check[i, 1] != ' ' && _check[i,0] == _check[i,1] && _check[i,1] == _check[i, 2] )
                 {
-                    win = _check[i, 3];
+                    win = _check[i, 1];
                 }
 
                 if (_check[1, i] != ' ' && _check[0, i] == _check[1, i] && _check[1, i] == _check[2, i] )
                 {
-                    win = _check[i, 3];
+                    win = _check[1, i];
                 }
             }
 
@@ -56,11 +65,20 @@ namespace TicTacToe
 
             if (_check[0, 2] != ' ' && _check[0, 2] == _check[1, 1] && _check[1, 1] == _check[2, 0])
             {
-                win = _check[0, 0];
+                win = _check[0, 2];
+            }
+
+            if((_counter == 9) && (win == ' '))
+            {
+                win = 'D';
+            }
+
+            if(win != ' ')
+            {
+                _end_of_game = true;
             }
 
             return win;
         }
-
     }
 }

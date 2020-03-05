@@ -24,11 +24,11 @@ namespace TicTacToe
         private UInt32[] _buttonPresses = new UInt32[_numTiles];
         Random _randomNumber = new Random();
 
-        Ticlogic tic = new Ticlogic();
+        private Ticlogic tic = new Ticlogic();
+        
 
         private String _statusText = "";
         public String StatusText
-
         {
             get { return _statusText; }
             set
@@ -38,10 +38,35 @@ namespace TicTacToe
             }
         }
 
+        private bool Cheat_flag = true;
+        private int _side = 0;
+        private double _slide = 0.0;
+        public double Slide
+        {
+            get { return _slide; }
+            set
+            {
+                if (!Cheat_flag)
+                {
+                    _slide = value;
+                    _side = (int)(Slide);
+                }
+                else
+                {
+                    StatusText = "DON'T CHEAT";
+                }
+
+                Cheat_flag = true;
+                OnPropertyChanged("Slide");
+            }
+        }
+
         public Model()
         {
             TileCollection = new ObservableCollection<Tile>();
             tic.Clear();
+            Cheat_flag = false;
+            Slide = 0;
             for (int i = 0; i < _numTiles; i++)
             {
                 TileCollection.Add(new Tile()
@@ -54,6 +79,67 @@ namespace TicTacToe
             }
         }
 
+        public void Clear()
+        {
+            tic.Clear();
+            Cheat_flag = false;
+            Slide = 0;
+            foreach (var t in TileCollection)
+            {
+                t.TileLabel = " ";
+            }
+        }
+
+        public void Switch_side()
+        {
+            Cheat_flag = false;
+            Slide = (Slide == 0.0) ? 1 : 0;
+        }
+
+        public bool UserSelection(String buttonSelected)
+        {
+            Debug.Write("Button selected was " + buttonSelected + "\n");
+            char[] _player = {'X', 'O'};
+            Brush[] _ox_brush = {new SolidColorBrush(Colors.Red), new SolidColorBrush(Colors.Blue)};
+
+            int index = int.Parse(buttonSelected);
+            int _row = index / 3;
+            int _col = index % 3;
+            if (tic.Mark(_player[_side], _row, _col))
+            {
+                TileCollection[index].TileLabel = _player[_side].ToString();
+
+                //TileCollection[index].TileBrush = new SolidColorBrush(Color.FromArgb(255, (byte)_randomNumber.Next(255), (byte)_randomNumber.Next(255), (byte)_randomNumber.Next(255)));
+                TileCollection[index].TileBrush = _ox_brush[_side];
+                //StatusText = "User Selected Button " + index.ToString() + "\n";
+                return true;
+            }
+            else
+            {
+                StatusText = "Try Again";
+            }
+
+            //_buttonPresses[index]++;
+            //TileCollection[index].TileLabel = _buttonPresses[index].ToString();
+
+            return false;
+        }
+
+        public char Win()
+        {
+            char __temp = tic.CheckWin();
+            switch (__temp)
+            {
+                case ' ': break;
+                case 'D': StatusText = "DRAW"; break;
+                case 'O': StatusText = "O WINS"; break;
+                case 'X': StatusText = "X WINS"; break;
+            }
+
+            return __temp;
+        }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
@@ -63,20 +149,6 @@ namespace TicTacToe
             }
         }
 
-        public void UserSelection(String buttonSelected)
-        {
-            Debug.Write("Button selected was " + buttonSelected + "\n");
-            char[] _player = {'X', 'O'};
 
-            int index = int.Parse(buttonSelected);
-            int _row = index / 3;
-            int _col = index % 3;
-            tic.Mark(_player[0], _row, _col);
-            TileCollection[index].TileLabel = _player[0].ToString();
-            //_buttonPresses[index]++;
-            //TileCollection[index].TileLabel = _buttonPresses[index].ToString();
-            TileCollection[index].TileBrush = new SolidColorBrush(Color.FromArgb(255, (byte)_randomNumber.Next(255), (byte)_randomNumber.Next(255), (byte)_randomNumber.Next(255)));
-            StatusText = "User Selected Button " + index.ToString() + "\n";
-        }
     }
 }
