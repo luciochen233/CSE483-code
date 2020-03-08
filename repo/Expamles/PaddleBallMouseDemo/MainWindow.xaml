@@ -1,23 +1,22 @@
-﻿<Window x:Class="PaddleDemo.MainWindow"
+﻿<Window x:Class="PaddleBallMouseDemo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PaddleDemo"
+        xmlns:local="clr-namespace:PaddleBallMouseDemo"
         mc:Ignorable="d"
-        Title="Paddle Demo" Height="500" Width="750"
+        Title="Paddle/Ball/Mouse Demo" Height="500" Width="750"
         Loaded="WindowLoaded"
         KeyDown="KeypadDown" 
         KeyUp="KeypadUp" 
-        Closing="OnClosing" MouseMove="Window_MouseMove" MouseRightButtonDown="Window_MouseRightButtonDown"
+        Closing="OnClosing"
         >
     <Grid>
         <Canvas 
             Name="BallCanvas"
-            Margin="0,0,0,0" 
             Height="458" 
             Width="730"
-            Background="BlanchedAlmond">
+            Background="BlanchedAlmond" MouseMove="BallCanvas_MouseMove" MouseRightButtonDown="BallCanvas_MouseRightButtonDown">
             <Rectangle
                 Canvas.Top ="{Binding paddleCanvasTop}"
                 Canvas.Left="{Binding paddleCanvasLeft}"
@@ -25,21 +24,13 @@
                 Height="{Binding paddleHeight}"
                 Width="{Binding paddleWidth}">
             </Rectangle>
-            <Rectangle
-                            MouseLeftButtonDown="Button_Click"
-                            Fill="{Binding BrickFill}"
-                            Stroke="DarkRed"
-                            Height="{Binding BrickHeight}"
-                            Width="{Binding BrickWidth}"
-                            Canvas.Top="{Binding BrickCanvasTop}"
-                            Canvas.Left ="{Binding BrickCanvasLeft}"
-                            Visibility="{Binding BrickVisible}">
-            </Rectangle>
             <Ellipse 
-                Canvas.Top="{Binding BallCanvasTop}" 
-                Canvas.Left="{Binding BallCanvasLeft}"  
-                Width="{Binding BallWidth}" 
-                Height="{Binding BallHeight}" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" MouseLeftButtonUp="Ellipse_MouseLeftButtonUp">
+                Name="TheBall"
+                Canvas.Top="{Binding ballCanvasTop}" 
+                Canvas.Left="{Binding ballCanvasLeft}"  
+                Width="{Binding ballWidth}" 
+                Height="{Binding ballHeight}" MouseLeftButtonDown="TheBall_MouseLeftButtonDown" MouseLeftButtonUp="TheBall_MouseLeftButtonUp"
+                >
                 <Ellipse.Fill>
                     <RadialGradientBrush GradientOrigin="0.75,0.25">
                         <GradientStop Color="Yellow" Offset="0.0" />
@@ -48,7 +39,7 @@
                     </RadialGradientBrush>
                 </Ellipse.Fill>
             </Ellipse>
-        </Canvas>
 
+        </Canvas>
     </Grid>
 </Window>

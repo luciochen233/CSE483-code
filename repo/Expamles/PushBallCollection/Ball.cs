@@ -11,46 +11,34 @@ using System.ComponentModel;
 using System.Windows.Media;
 
 
-namespace PaddleDemo
+namespace PushBallCollection
 {
     public partial class Model : INotifyPropertyChanged
     {
-        private bool _move = false;
-        public bool Move
-        {
-            get { return _move; }
-            set
-            {
-                _move = value;
-                OnPropertyChanged("Move");
-            }
-        }
-
-
         private double _ballCanvasTop;
-        public double BallCanvasTop
+        public double ballCanvasTop
         {
             get { return _ballCanvasTop; }
             set
             {
                 _ballCanvasTop = value;
-                OnPropertyChanged("BallCanvasTop");
+                OnPropertyChanged("ballCanvasTop");
             }
         }
 
         private double _ballCanvasLeft;
-        public double BallCanvasLeft
+        public double ballCanvasLeft
         {
             get { return _ballCanvasLeft; }
             set
             {
                 _ballCanvasLeft = value;
-                OnPropertyChanged("BallCanvasLeft");
+                OnPropertyChanged("ballCanvasLeft");
             }
         }
 
         private double _ballHeight;
-        public double BallHeight
+        public double ballHeight
         {
             get { return _ballHeight; }
             set
@@ -61,27 +49,14 @@ namespace PaddleDemo
         }
 
         private double _ballWidth;
-        public double BallWidth
+        public double ballWidth
         {
             get { return _ballWidth; }
             set
             {
                 _ballWidth = value;
-                OnPropertyChanged("BallWidth");
+                OnPropertyChanged("ballWidth");
             }
         }
-
-        public void ProcessMouseDrag(uint x, uint y)
-        {
-            if (Move)
-            {
-                BallCanvasLeft = x - BallWidth / 2;
-                BallCanvasTop = y - BallHeight / 2;
-                }
-            CheckPush();
-            UpdateRects();
-
-        }
-
     }
 }

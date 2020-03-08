@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if (false)
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +10,12 @@ using System.ComponentModel;
 
 // Brushes
 using System.Windows.Media;
-using System.Windows.Shapes;
 
-namespace PaddleDemo
+
+namespace PushBallCollection
 {
     public partial class Model : INotifyPropertyChanged
     {
-
         private double _paddleCanvasTop;
         public double paddleCanvasTop
         {
@@ -59,6 +59,17 @@ namespace PaddleDemo
                 OnPropertyChanged("paddleWidth");
             }
         }
-        
+
+        private Brush _fillColor;
+        public Brush FillColor
+        {
+            get { return _fillColor; }
+            set
+            {
+                _fillColor = value;
+                OnPropertyChanged("FillColor");
+            }
+        }
     }
 }
+#endif

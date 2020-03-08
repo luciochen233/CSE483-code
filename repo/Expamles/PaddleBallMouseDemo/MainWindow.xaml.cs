@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PaddleDemo
+namespace PaddleBallMouseDemo
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -21,6 +21,7 @@ namespace PaddleDemo
     public partial class MainWindow : Window
     {
         private Model _model;
+        private bool _leftMouseDown = false;
 
 
         public MainWindow()
@@ -66,36 +67,30 @@ namespace PaddleDemo
             _model.CleanUp();
         }
 
-        private void Window_MouseMove(object sender, MouseEventArgs e)
+        private void BallCanvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_leftMouseDown)
+            {
+                Point p = e.GetPosition(this);
+                _model.ProcessMouseDrag((uint)p.X, (uint)p.Y);
+            }
+        }
+
+        private void BallCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             Point p = e.GetPosition(this);
-            _model.ProcessMouseDrag((uint)p.X, (uint)p.Y);
+            _model.ProcessMouseClick((uint)p.X, (uint)p.Y);
+
         }
 
-        private void Window_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        private void TheBall_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Point p = e.GetPosition(this);
-            _model.BallCanvasLeft = (uint)p.X - _model.BallWidth/2;
-            _model.BallCanvasTop = (uint)p.Y - _model.BallHeight/2;
+            _leftMouseDown = true;
         }
 
-        private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void TheBall_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            _model.Move = true;
-        }
-
-        private void Ellipse_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            _model.Move = false;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            // one of the buttons in our collection. need to figure out
-            // which one. Since we know the button is part of a collection, we 
-            // have a special way that we need to get at its bame
-            _model.ToggleBrickColor();
-           
+            _leftMouseDown = false;
         }
     }
 }

@@ -125,9 +125,61 @@ namespace TicTacToe
             return false;
         }
 
+        public void Mark_Winner(int winner)
+        {
+            if (winner < 0 || winner > 7) return;
+            Brush _win_color = new SolidColorBrush(Colors.Gold);
+            if(winner <3)
+            {
+                TileCollection[0 + winner*3].TileBrush = _win_color;
+                TileCollection[1 + winner*3].TileBrush = _win_color;
+                TileCollection[2 + winner*3].TileBrush = _win_color;
+                return;
+            }
+            if(winner < 6)
+            {
+                winner -= 3;
+                TileCollection[0 + winner].TileBrush = _win_color;
+                TileCollection[3 + winner].TileBrush = _win_color;
+                TileCollection[6 + winner].TileBrush = _win_color;
+                return;
+            }
+            if(winner == 6)
+            {
+                TileCollection[0].TileBrush = _win_color;
+                TileCollection[4].TileBrush = _win_color;
+                TileCollection[8].TileBrush = _win_color;
+                return;
+            }
+            if(winner == 7)
+            {
+                TileCollection[2].TileBrush = _win_color;
+                TileCollection[4].TileBrush = _win_color;
+                TileCollection[6].TileBrush = _win_color;
+                return;
+            }
+        }
+
         public char Win()
         {
             char __temp = tic.CheckWin();
+            int __which_row = -1;
+            if(__temp >= 'O' && __temp < 'X')  //black magic
+            {
+                __which_row = __temp - 'O';
+                __temp = 'O';
+            } else if(__temp >= 'X' && __temp < '`')
+            {
+                __which_row = __temp - 'X';
+                __temp = 'X';
+            }
+            if(__which_row >=0)
+            {
+                Console.WriteLine(__which_row);
+                Mark_Winner(__which_row);
+            }
+            
+
             switch (__temp)
             {
                 case ' ': break;

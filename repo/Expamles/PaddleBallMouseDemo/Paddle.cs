@@ -9,13 +9,12 @@ using System.ComponentModel;
 
 // Brushes
 using System.Windows.Media;
-using System.Windows.Shapes;
 
-namespace PaddleDemo
+
+namespace PaddleBallMouseDemo
 {
     public partial class Model : INotifyPropertyChanged
     {
-
         private double _paddleCanvasTop;
         public double paddleCanvasTop
         {
@@ -59,6 +58,5 @@ namespace PaddleDemo
                 OnPropertyChanged("paddleWidth");
             }
         }
-        
     }
 }
