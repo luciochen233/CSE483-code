@@ -112,6 +112,7 @@ namespace TicTacToe
                 //TileCollection[index].TileBrush = new SolidColorBrush(Color.FromArgb(255, (byte)_randomNumber.Next(255), (byte)_randomNumber.Next(255), (byte)_randomNumber.Next(255)));
                 TileCollection[index].TileBrush = _ox_brush[_side];
                 //StatusText = "User Selected Button " + index.ToString() + "\n";
+                StatusText = " ";
                 return true;
             }
             else

@@ -1,0 +1,27 @@
+﻿<Window x:Class="SampleThread.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Sample Threading" Height="375" Width="500" Closing="Window_Closing">
+    <Grid>
+        <Canvas Name="ThreadA" Background="Beige" VerticalAlignment="Top"  HorizontalAlignment="Left"  Height="300"  Width="250">
+            <Label Content="Thread A" Canvas.Left="87" Canvas.Top="31"/>
+            <TextBox Height="23" Text="{Binding ThreadAData}" Canvas.Left="62" TextWrapping="Wrap" Canvas.Top="77" Width="120"/>
+            <Button Click="ButtonClick"  Content="Start A" Canvas.Left="84" Canvas.Top="125" Width="75"/>
+            <Button Click="ButtonClick" Content="Stop A" Canvas.Left="84" Canvas.Top="157" Width="75"/>
+            <Button Click="ButtonClick" Content="Suspend A" Canvas.Left="84" Canvas.Top="186" Width="75"/>
+            <Button Click="ButtonClick" Content="Resume A" Canvas.Left="84" Canvas.Top="214" Width="75" RenderTransformOrigin="0.717,1.145"/>
+        </Canvas>
+        <Canvas Name="ThreadB" Background=" Bisque" VerticalAlignment="Top"  HorizontalAlignment="Right"  Height="300" Width="250">
+            <Label Content="Thread B" Canvas.Left="87" Canvas.Top="31"/>
+            <TextBox Height="23" Text="{Binding ThreadBData}" Canvas.Left="62" TextWrapping="Wrap" Canvas.Top="77" Width="120"/>
+            <Button Click="ButtonClick" Content="Start B" Canvas.Left="84" Canvas.Top="125" Width="75"/>
+            <Button Click="ButtonClick" Content="Stop B" Canvas.Left="84" Canvas.Top="157" Width="75"/>
+            <Button Click="ButtonClick" Content="Suspend B" Canvas.Left="84" Canvas.Top="186" Width="75"/>
+            <Button Click="ButtonClick" Content="Resume B" Canvas.Left="84" Canvas.Top="214" Width="75" RenderTransformOrigin="0.717,1.145"/>
+        </Canvas>
+        <Canvas Background=" LightGray" VerticalAlignment="Bottom" Height="50" Width="500">
+            <TextBox Name="StatusMessages" Foreground=" DarkRed" Height="30" Canvas.Left="29" TextWrapping="Wrap" Width="434" Canvas.Top="10" IsEnabled="False"/>
+        </Canvas>
+
+    </Grid>
+</Window>

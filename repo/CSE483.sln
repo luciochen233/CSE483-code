@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaddleBallMouseDemo", "Expa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushBallCollection", "Expamles\PushBallCollection\PushBallCollection.csproj", "{1A2DBB76-FFFC-421C-8CFB-B29C531E8A83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleThread", "SampleThread\SampleThread.csproj", "{469005C8-9002-4946-B015-46F92F6B7A00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -137,6 +139,10 @@ Global
 		{1A2DBB76-FFFC-421C-8CFB-B29C531E8A83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A2DBB76-FFFC-421C-8CFB-B29C531E8A83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A2DBB76-FFFC-421C-8CFB-B29C531E8A83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{469005C8-9002-4946-B015-46F92F6B7A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{469005C8-9002-4946-B015-46F92F6B7A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{469005C8-9002-4946-B015-46F92F6B7A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{469005C8-9002-4946-B015-46F92F6B7A00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

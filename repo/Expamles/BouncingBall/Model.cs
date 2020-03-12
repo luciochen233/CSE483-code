@@ -27,10 +27,19 @@ using System.Drawing;
 // INotifyPropertyChanged
 using System.ComponentModel;
 
+// Threading
+using System.Threading;
+
 namespace BouncingBall
 {
     public partial class Model : INotifyPropertyChanged
     {
+        private Thread _threadA = null;
+        private Thread _threadB = null;
+        private bool _threadAIsSuspended = false;
+        private bool _threadBIsSuspended = false;
+        private bool _isThreadARunning = false;
+        private bool _isThreadBRunning = false;
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
@@ -81,39 +90,128 @@ namespace BouncingBall
         /// <returns></returns>
         public Model()
         {
+            _threadAIsSuspended = false;
+            if (_threadA == null)
+            {
+                _threadA = new Thread(new ThreadStart(ThreadAFunction));
+                _threadB = new Thread(new ThreadStart(ThreadBFunction));
+                _isThreadARunning = true;
+                _isThreadBRunning = true;
+                _threadA.Start();
+                _threadB.Start();
+                return;
+            }
+        }
+
+        void ThreadAFunction()
+        {
+            try
+            {
+                while (_isThreadARunning)
+                {
+                    Thread.Sleep(10);
+                    if (_threadAIsSuspended) continue;
+
+                    // below are all the things this thread needs to do
+                    //ThreadAData = _randomNumber.Next().ToString();
+
+                    ballCanvasLeft += _ballXMove;
+                    ballCanvasTop += _ballYMove;
+                    // check to see if ball has it the left or right side of the drawing element
+                    if ((ballCanvasLeft + BallWidth >= _windowWidth) ||
+                        (ballCanvasLeft <= 0))
+                        _ballXMove = -_ballXMove;
+
+
+                    // check to see if ball has it the top of the drawing element
+                    if (ballCanvasTop <= 0)
+                        _ballYMove = -_ballYMove;
+
+                    if (ballCanvasTop + BallWidth >= _windowHeight)
+                    {
+                        // we hit bottom. stop moving the ball
+                        _moveBall = false;
+                    }
+
+                    // see if we hit the paddle
+                    _ballRectangle = new System.Drawing.Rectangle((int)ballCanvasLeft, (int)ballCanvasTop, (int)BallWidth, (int)BallHeight);
+                    if (_ballRectangle.IntersectsWith(_paddleRectangle))
+                    {
+                        // hit paddle. reverse direction in Y direction
+                        _ballYMove = -_ballYMove;
+
+                        // move the ball away from the paddle so we don't intersect next time around and
+                        // get stick in a loop where the ball is bouncing repeatedly on the paddle
+                        ballCanvasTop += 2 * _ballYMove;
+
+                        // add move the ball in X some small random value so that ball is not traveling in the same 
+                        // pattern
+                        ballCanvasLeft += _randomNumber.Next(5);
+                    }
+
+                }
+            }
+            catch (ThreadAbortException)
+            {
+                Debug.Write("Thread A Aborted\n");
+            }
+        }
+
+        void ThreadBFunction()
+        {
+            try
+            {
+                while (_isThreadBRunning)
+                {
+                    Thread.Sleep(10);
+                    if (_threadAIsSuspended) continue;
+
+                    if (_movepaddleLeft && paddleCanvasLeft > 0)
+                        paddleCanvasLeft -= 2;
+                    else if (_movepaddleRight && paddleCanvasLeft < _windowWidth - paddleWidth)
+                        paddleCanvasLeft += 2;
+
+                    _paddleRectangle = new System.Drawing.Rectangle((int)paddleCanvasLeft, (int)paddleCanvasTop, (int)paddleWidth, (int)paddleHeight);
+
+                }
+            }
+            catch (ThreadAbortException)
+            {
+                Debug.Write("Thread B Aborted\n");
+            }
         }
 
         public void InitModel()
         {
             // this delegate is needed for the multi media timer defined 
             // in the TimerQueueTimer class.
-            _ballTimerCallbackDelegate = new TimerQueueTimer.WaitOrTimerDelegate(BallMMTimerCallback);
-            _paddleTimerCallbackDelegate = new TimerQueueTimer.WaitOrTimerDelegate(paddleMMTimerCallback);
+            //_ballTimerCallbackDelegate = new TimerQueueTimer.WaitOrTimerDelegate(BallMMTimerCallback);
+            //_paddleTimerCallbackDelegate = new TimerQueueTimer.WaitOrTimerDelegate(paddleMMTimerCallback);
 
             // create our multi-media timers
-            _ballHiResTimer = new TimerQueueTimer();
-            try
-            {
-                // create a Multi Media Hi Res timer.
-                _ballHiResTimer.Create(1, 1, _ballTimerCallbackDelegate);
-            }
-            catch (QueueTimerException ex)
-            {
-                Console.WriteLine(ex.ToString());
-                Console.WriteLine("Failed to create Ball timer. Error from GetLastError = {0}", ex.Error);
-            }
+            //_ballHiResTimer = new TimerQueueTimer();
+            //try
+            //{
+            //    // create a Multi Media Hi Res timer.
+            //    _ballHiResTimer.Create(1, 1, _ballTimerCallbackDelegate);
+            //}
+            //catch (QueueTimerException ex)
+            //{
+            //    Console.WriteLine(ex.ToString());
+            //    Console.WriteLine("Failed to create Ball timer. Error from GetLastError = {0}", ex.Error);
+            //}
 
-            _paddleHiResTimer = new TimerQueueTimer();
-            try
-            {
-                // create a Multi Media Hi Res timer.
-                _paddleHiResTimer.Create(2, 2, _paddleTimerCallbackDelegate);
-            }
-            catch (QueueTimerException ex)
-            {
-                Console.WriteLine(ex.ToString());
-                Console.WriteLine("Failed to create paddle timer. Error from GetLastError = {0}", ex.Error);
-            }
+            //_paddleHiResTimer = new TimerQueueTimer();
+            //try
+            //{
+            //    // create a Multi Media Hi Res timer.
+            //    _paddleHiResTimer.Create(2, 2, _paddleTimerCallbackDelegate);
+            //}
+            //catch (QueueTimerException ex)
+            //{
+            //    Console.WriteLine(ex.ToString());
+            //    Console.WriteLine("Failed to create paddle timer. Error from GetLastError = {0}", ex.Error);
+            //}
         }
 
         public void CleanUp()
