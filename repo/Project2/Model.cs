@@ -9,14 +9,7 @@ namespace Project2
 {
     class Model : INotifyPropertyChanged
     {
-        public Model()
-        {
-            LeftNum = "Left";
-            RightNum = "Right";
-            Operation = "Operation";
-            Result = "Result";
-
-        }
+        
 
         public void Clear()
         {
