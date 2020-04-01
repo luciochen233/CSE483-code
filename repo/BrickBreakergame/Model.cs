@@ -56,7 +56,7 @@ namespace BrickBreakergame
 
         //Brick Collection
         public ObservableCollection<Brick> BrickCollection;
-        private static UInt32 _numBricks = 20;
+        private static UInt32 _numBricks = 40;
         Rectangle[] _brickRectangles = new Rectangle[_numBricks];
         // note that the brick hight, number of brick columns and rows
         // must match our window demensions.
@@ -142,11 +142,11 @@ namespace BrickBreakergame
 
             BallHeight = 30;
             BallWidth = 30;
-            paddleWidth = 120;
+            paddleWidth = 700;
             paddleHeight = 10;
 
             ballCanvasLeft = _windowWidth / 2 - BallWidth / 2;
-            ballCanvasTop = _windowHeight / 5;
+            ballCanvasTop = _windowHeight / 3;
 
             _moveBall = false;
 
@@ -267,6 +267,25 @@ namespace BrickBreakergame
                 // pattern
                 ballCanvasLeft += _randomNumber.Next(5);
             }
+
+            //see if we hit any of the brick
+            
+            for (int brick = 0; brick < _numBricks; brick++)
+            {
+                if (BrickCollection[brick].BrickVisible == Visibility.Hidden) continue;
+                switch (IntersectsAt(BrickCollection[brick].BrickRectangle, _ballRectangle))
+                {
+                    case InterectSide.NONE: break;
+                    case InterectSide.LEFT: BrickCollection[brick].BrickVisible = Visibility.Hidden; _ballXMove = -_ballXMove;   break;
+                    case InterectSide.RIGHT: BrickCollection[brick].BrickVisible = Visibility.Hidden; _ballXMove = -_ballXMove; break;
+                    case InterectSide.TOP: BrickCollection[brick].BrickVisible = Visibility.Hidden; _ballYMove = -_ballYMove; break;
+                    case InterectSide.BOTTOM: BrickCollection[brick].BrickVisible = Visibility.Hidden; _ballYMove = -_ballYMove; break;
+                }
+            }
+                
+                
+                
+
 
             // done in callback. OK to delete timer
             _ballHiResTimer.DoneExecutingCallback();
