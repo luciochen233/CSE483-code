@@ -27,6 +27,9 @@ using System.Drawing;
 // INotifyPropertyChanged
 using System.ComponentModel;
 
+// Timer.Timer
+using System.Timers;
+
 namespace BrickBreakergame
 {
     public partial class Model : INotifyPropertyChanged
@@ -136,12 +139,14 @@ namespace BrickBreakergame
 
             _brickWidth = (_windowWidth - 20) / 15;
             Create_Brick();
+            NETTimerTimerStart(true);
         }
 
         public void CleanUp()
         {
             _ballHiResTimer.Delete();
             _paddleHiResTimer.Delete();
+            NETTimerTimerStart(false);
         }
 
 
@@ -150,7 +155,7 @@ namespace BrickBreakergame
 
             BallHeight = 30;
             BallWidth = 30;
-            paddleWidth = 700;
+            paddleWidth = 150;
             paddleHeight = 10;
 
             Replace_ball();
@@ -164,6 +169,8 @@ namespace BrickBreakergame
                 BrickCollection[brick].BrickVisible = Visibility. Visible;
             }
             Score = 0;
+            Time = 0;
+            
         }
 
         public void Replace_ball()
@@ -335,5 +342,46 @@ namespace BrickBreakergame
             // done in callback. OK to delete timer
             _paddleHiResTimer.DoneExecutingCallback();
         }
+
+
+        #region .NET Timer Timer
+        bool _netTimerTimerRunning = false;
+        // used for measuring the period of the .NET timer timer
+        uint NETTimerTimerTicks = 0;
+        long NETTimerTimerTotalTime = 0;
+        long NETTimerTimerPreviousTime;
+
+        System.Timers.Timer dotNetTimerTimer;
+
+        private uint _time = 0;
+        public uint Time
+        {
+            get { return _time; }
+            set { _time = value; OnPropertyChanged("Time"); }
+        }
+        public bool NETTimerTimerStart(bool startStop)
+        {
+            if (startStop == true)
+            {
+                dotNetTimerTimer = new System.Timers.Timer(1000); // hard coded 1 second in this timer
+                dotNetTimerTimer.Elapsed += new ElapsedEventHandler(NetTimerTimerHandler);
+                dotNetTimerTimer.Start();
+
+            }
+            else if (_netTimerTimerRunning)
+            {
+                dotNetTimerTimer.Stop();
+            }
+
+            return true;
+        }
+
+        private void NetTimerTimerHandler(object source, ElapsedEventArgs e)
+        {
+            if(MoveBall)Time++;
+        }
+
+        #endregion
+
     }
 }
