@@ -30,7 +30,12 @@ namespace UDPGUIClient
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _myModel.Send();
+            _myModel.SendMessage();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _myModel.CloseSocket();
         }
     }
 }

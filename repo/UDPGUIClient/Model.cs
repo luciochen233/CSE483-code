@@ -17,29 +17,26 @@ namespace UDPGUIClient
     class Model : INotifyPropertyChanged
     {
         // some data that keeps track of ports and addresses
-        private static UInt32 _remotePort = 5000;
-        private static String _remoteIPAddress = "127.0.0.1";
+        private static int _remotePort = 5000;
+        private static string _remoteIPAddress = "127.0.0.1";
+
+        private static int _localPort = 5001;
+        private static string _localIPAddress = "127.0.0.1";
 
         // this is the UDP socket that will be used to communicate
         // over the network
         static private UdpClient _dataSocket;
 
+        // this is the thread that will run in the background
+        // waiting for incomming data
+        private static Thread _receiveDataThread;
 
-        public void Send()
+        public Model()
         {
-            try
-            {
-                // set up generic UDP socket and bind to local port
-                _dataSocket = new UdpClient();
-            }
-            catch (Exception ex)
-            {
-                StatusBox += ex.ToString();
-                return;
-            }
-
-            SendMessage();
+            _dataSocket = new UdpClient(_localPort);
+            StartThread();
         }
+
 
         public void SendMessage()
         {
@@ -58,6 +55,44 @@ namespace UDPGUIClient
             }
             StatusBox += DateTime.Now.ToString() + ": Message " + MessageBox + " sent successfully" + "\n";
             MessageBox = "";
+        }
+
+        public void StartThread()
+        {
+            // start the thread to listen for data from other UDP peer
+            ThreadStart threadFunction = new ThreadStart(ReceiveThreadFunction);
+            _receiveDataThread = new Thread(threadFunction);
+            _receiveDataThread.Start();
+        }
+
+        private void ReceiveThreadFunction()
+        {
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(_localIPAddress), (int)_localPort);
+            while (true)
+            {
+                try
+                {
+                    // wait for data
+                    // this is a blocking call
+                    Byte[] receiveData = _dataSocket.Receive(ref endPoint);
+
+                    // convert byte array to a string
+                    LoopBack = DateTime.Now.ToString() + ": " + System.Text.Encoding.Default.GetString(receiveData) + "\n";
+                }
+                catch (SocketException ex)
+                {
+                    // got here because either the Receive failed, or more
+                    // or more likely the socket was destroyed by 
+                    // exiting from the JoystickPositionWindow form
+                    StatusBox += ex.ToString() + "\n";
+                    //MessageBox.Show(ex.ToString(), "UDP Server");
+                    return;
+                }
+            }
+        }
+        public void CloseSocket()
+        {
+            _receiveDataThread.Abort();
             _dataSocket.Close();
         }
 
@@ -80,6 +115,17 @@ namespace UDPGUIClient
             {
                 _messageBox = value;
                 OnPropertyChanged("MessageBox");
+            }
+        }
+
+        private string _loopBack;
+        public string LoopBack
+        {
+            get { return _loopBack; }
+            set
+            {
+                _loopBack = value;
+                OnPropertyChanged("LoopBack");
             }
         }
 

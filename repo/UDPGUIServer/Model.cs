@@ -59,6 +59,8 @@ namespace UDPGUIServer
 
                     // convert byte array to a string
                     StatusBox += DateTime.Now.ToString() + ": " + System.Text.Encoding.Default.GetString(receiveData) + "\n";
+
+                    _dataSocket.Send(receiveData, receiveData.Length, endPoint);
                 }
                 catch (SocketException ex)
                 {
@@ -79,7 +81,7 @@ namespace UDPGUIServer
             _receiveDataThread = new Thread(threadFunction);
             _receiveDataThread.Start();
         }
-
+        
         public void CloseSocket()
         {
             _receiveDataThread.Abort();
