@@ -52,6 +52,8 @@ namespace BrickBreakergame
                 _model.MoveBall = !_model.MoveBall;
             else if (e.Key == Key.R)
                 _model.SetStartPosition();
+            else if (e.Key == Key.B)
+                _model.Replace_ball();
 
         }
 

@@ -56,7 +56,7 @@ namespace BrickBreakergame
 
         //Brick Collection
         public ObservableCollection<Brick> BrickCollection;
-        private static UInt32 _numBricks = 40;
+        private static UInt32 _numBricks = 45;
         Rectangle[] _brickRectangles = new Rectangle[_numBricks];
         // note that the brick hight, number of brick columns and rows
         // must match our window demensions.
@@ -86,6 +86,14 @@ namespace BrickBreakergame
             set { _windowWidth = value; }
         }
 
+        private uint _score = 0;
+        public uint Score
+        {
+            get { return _score; }
+            set { _score = value; OnPropertyChanged("Score"); }
+        }
+
+
         /// <summary>
         /// Model constructor
         /// </summary>
@@ -106,7 +114,7 @@ namespace BrickBreakergame
             try
             {
                 // create a Multi Media Hi Res timer.
-                _ballHiResTimer.Create(1, 1, _ballTimerCallbackDelegate);
+                _ballHiResTimer.Create(2, 2, _ballTimerCallbackDelegate);
             }
             catch (QueueTimerException ex)
             {
@@ -126,7 +134,7 @@ namespace BrickBreakergame
                 Console.WriteLine("Failed to create paddle timer. Error from GetLastError = {0}", ex.Error);
             }
 
-            _brickWidth = (_windowWidth - 20) / 10;
+            _brickWidth = (_windowWidth - 20) / 15;
             Create_Brick();
         }
 
@@ -145,14 +153,26 @@ namespace BrickBreakergame
             paddleWidth = 700;
             paddleHeight = 10;
 
-            ballCanvasLeft = _windowWidth / 2 - BallWidth / 2;
-            ballCanvasTop = _windowHeight / 3;
-
-            _moveBall = false;
+            Replace_ball();
 
             paddleCanvasLeft = _windowWidth / 2 - paddleWidth / 2;
             paddleCanvasTop = _windowHeight - paddleHeight;
             _paddleRectangle = new System.Drawing.Rectangle((int)paddleCanvasLeft, (int)paddleCanvasTop, (int)paddleWidth, (int)paddleHeight);
+
+            for (int brick = 0; brick < _numBricks; brick++)
+            {
+                BrickCollection[brick].BrickVisible = Visibility. Visible;
+            }
+            Score = 0;
+        }
+
+        public void Replace_ball()
+        {
+            _moveBall = false;
+            ballCanvasLeft = _windowWidth / 2 - BallWidth / 2;
+            ballCanvasTop = _windowHeight / 3;
+            _ballXMove = (double)_randomNumber.Next(-70, 70) / 50;
+            _ballYMove = 1;
         }
 
         public void Create_Brick()
@@ -269,26 +289,26 @@ namespace BrickBreakergame
             }
 
             //see if we hit any of the brick
-            
+            check_brick_hit();
+
+            // done in callback. OK to delete timer
+            _ballHiResTimer.DoneExecutingCallback();
+        }
+
+        private void check_brick_hit()
+        {
             for (int brick = 0; brick < _numBricks; brick++)
             {
                 if (BrickCollection[brick].BrickVisible == Visibility.Hidden) continue;
                 switch (IntersectsAt(BrickCollection[brick].BrickRectangle, _ballRectangle))
                 {
                     case InterectSide.NONE: break;
-                    case InterectSide.LEFT: BrickCollection[brick].BrickVisible = Visibility.Hidden; _ballXMove = -_ballXMove;   break;
-                    case InterectSide.RIGHT: BrickCollection[brick].BrickVisible = Visibility.Hidden; _ballXMove = -_ballXMove; break;
-                    case InterectSide.TOP: BrickCollection[brick].BrickVisible = Visibility.Hidden; _ballYMove = -_ballYMove; break;
-                    case InterectSide.BOTTOM: BrickCollection[brick].BrickVisible = Visibility.Hidden; _ballYMove = -_ballYMove; break;
+                    case InterectSide.LEFT: BrickCollection[brick].BrickVisible = Visibility.Hidden; _ballXMove = -_ballXMove; Score += 1; return;
+                    case InterectSide.RIGHT: BrickCollection[brick].BrickVisible = Visibility.Hidden; _ballXMove = -_ballXMove; Score += 1; return;
+                    case InterectSide.TOP: BrickCollection[brick].BrickVisible = Visibility.Hidden; _ballYMove = -_ballYMove; Score += 1; return;
+                    case InterectSide.BOTTOM: BrickCollection[brick].BrickVisible = Visibility.Hidden; _ballYMove = -_ballYMove; Score += 1; return;
                 }
             }
-                
-                
-                
-
-
-            // done in callback. OK to delete timer
-            _ballHiResTimer.DoneExecutingCallback();
         }
 
         private void paddleMMTimerCallback(IntPtr pWhat, bool success)
