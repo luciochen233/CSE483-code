@@ -94,13 +94,13 @@ namespace EventShapes
 
         public void Calculate_triangle()
         {
-            //System.Windows.Point Point1 = new System.Windows.Point(CanvasTop, CanvasLeft+Width/2);
-            //System.Windows.Point Point2 = new System.Windows.Point(CanvasTop+Height, CanvasLeft);
-            //System.Windows.Point Point3 = new System.Windows.Point(CanvasTop + Height, CanvasLeft+Width);
+            System.Windows.Point Point1 = new System.Windows.Point(Width / 2, 0);
+            System.Windows.Point Point2 = new System.Windows.Point(0,Height);
+            System.Windows.Point Point3 = new System.Windows.Point(Width, Height);
 
-            System.Windows.Point Point1 = new System.Windows.Point(10, 10);
-            System.Windows.Point Point2 = new System.Windows.Point(15, 15);
-            System.Windows.Point Point3 = new System.Windows.Point(10, 15);
+            //System.Windows.Point Point1 = new System.Windows.Point(10, 10);
+            //System.Windows.Point Point2 = new System.Windows.Point(15, 15);
+            //System.Windows.Point Point3 = new System.Windows.Point(10, 15);
             PointCollection myPointCollection = new PointCollection
                         {
                             Point1,

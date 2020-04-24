@@ -69,14 +69,6 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Polygon
-                Fill="Chocolate"
-                Stroke="Black"
-                Points="{Binding Triangle2}"
-                Opacity="0.8"
-                Stretch="Fill"
-                MouseMove="Triangle_MouseMove">
-            </Polygon>
             <ItemsControl Name="MyTriangle">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:Name="TriangleTemplate">
@@ -85,6 +77,8 @@
                             Fill="{Binding Fill}"
                             Stroke="Black"
                             Points="{Binding Tri_dimention}"
+                            Canvas.Top="{Binding CanvasTop}"
+                            Canvas.Left ="{Binding CanvasLeft}"
                             MouseMove="Triangle_MouseMove">
                             </Polygon>
                         </Canvas>

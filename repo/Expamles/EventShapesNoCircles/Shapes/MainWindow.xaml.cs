@@ -109,6 +109,7 @@ namespace EventShapes
             MyRectangles.ItemsSource = _model.RectCollection;
             MySquares.ItemsSource = _model.SquareCollection;
             MyCircle.ItemsSource = _model.CircleCollection;
+            MyTriangle.ItemsSource = _model.TriangleCollection;
         }
 
         private void Rectangle_MouseMove(object sender, MouseEventArgs e)
