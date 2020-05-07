@@ -47,6 +47,7 @@
         </ItemsControl>
 
         <Button x:Name="Breset" Grid.Row="3" Content="Reset" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="64" BorderBrush="Black" Background="#FFEDFDFF" Foreground="#009999" Click="Breset_Click"/>
-        <Label HorizontalAlignment="Center" Grid.Row="4" FontSize="32"  Content="{Binding Path=StatusText}" VerticalAlignment="Center" />
+        <Button x:Name="BLink" Grid.Row="4" Content="Link" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Top" Width="300" Height="35" BorderBrush="Black" Background="#FFEDFDFF" Foreground="#009999" Click="SocketSetup_Button_Click"/>
+        <Label HorizontalAlignment="Center" Grid.Row="4" FontSize="24"  Content="{Binding Path=StatusText}" VerticalAlignment="Bottom" />
     </Grid>
 </Window>

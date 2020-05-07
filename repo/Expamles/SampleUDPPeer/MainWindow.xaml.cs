@@ -1,5 +1,4 @@
-﻿using SocketSetup;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TicTacToe
+// socket setup window
+using SocketSetup;
+
+namespace SampleUDPPeer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -22,13 +24,14 @@ namespace TicTacToe
     public partial class MainWindow : Window
     {
         private Model _model;
+
         public MainWindow()
         {
             InitializeComponent();
-            this.ResizeMode = ResizeMode.NoResize;
+
             _model = new Model();
             this.DataContext = _model;
-            MyItemsControl.ItemsSource = _model.TileCollection;
+            this.ResizeMode = ResizeMode.NoResize;
         }
 
         private void SocketSetup_Button_Click(object sender, RoutedEventArgs e)
@@ -45,40 +48,17 @@ namespace TicTacToe
             _model.SetRemoteNetworkSettings(socketSetupWindow.SocketData.RemotePort, socketSetupWindow.SocketData.RemoteIPString);
 
             // initialize model and get the ball rolling
-            _model.InitNetwork();
+            _model.InitModel();
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            // one of the buttons in our collection. need to figure out
-            // which one. Since we know the button is part of a collection, we 
-            // have a special way that we need to get at its bame
-
-            var selectedButton = e.OriginalSource as FrameworkElement;
-            if (selectedButton != null)
-            {
-                // get the currently selected item in the collection
-                // which we know to be a Tile object
-                // Tile has a TileName (refer to Tile.cs)
-                var currentTile = selectedButton.DataContext as Tile;
-                if (_model.UserSelection(currentTile.TileName))
-                {
-                    _model.Switch_side();
-                    _model.Win();
-                }
-            }
-            
+            _model.Model_Cleanup();
         }
 
-        private void Breset_Click(object sender, RoutedEventArgs e)
+        private void Send_Button_Click(object sender, RoutedEventArgs e)
         {
-            _model.Clear();
-            _model.StatusText = "RESET";
+            _model.SendMessage();
         }
-
-        //private void Side_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        //{
-        //    var a = e.NewValue;
-        //    _model.Switch_side(a);
-        //}
     }
 }

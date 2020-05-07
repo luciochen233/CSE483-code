@@ -17,7 +17,7 @@ using System.Diagnostics;
 
 namespace TicTacToe
 {
-    class Model : INotifyPropertyChanged
+    partial class Model : INotifyPropertyChanged
     {
         public ObservableCollection<Tile> TileCollection;
         private static UInt32 _numTiles = 9;
@@ -192,6 +192,7 @@ namespace TicTacToe
             return __temp;
         }
 
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)

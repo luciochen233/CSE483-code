@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrickBreakergame", "BrickBr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventShapesNoCircles", "Expamles\EventShapesNoCircles\Shapes\EventShapesNoCircles.csproj", "{582A6678-9740-4D6C-AF7D-EFAB25975251}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleUDPPeer", "Expamles\SampleUDPPeer\SampleUDPPeer.csproj", "{EA90B665-D77C-401F-B0F4-EDE4F9225950}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -179,6 +181,10 @@ Global
 		{582A6678-9740-4D6C-AF7D-EFAB25975251}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{582A6678-9740-4D6C-AF7D-EFAB25975251}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{582A6678-9740-4D6C-AF7D-EFAB25975251}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA90B665-D77C-401F-B0F4-EDE4F9225950}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA90B665-D77C-401F-B0F4-EDE4F9225950}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA90B665-D77C-401F-B0F4-EDE4F9225950}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA90B665-D77C-401F-B0F4-EDE4F9225950}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -200,6 +206,7 @@ Global
 		{E2C24B5E-F086-4C84-8343-818190320A98} = {23DCA6F0-3B54-4539-B70D-E6DBDA054643}
 		{0A403FE8-03C7-4540-BA4D-0069AEC02957} = {23DCA6F0-3B54-4539-B70D-E6DBDA054643}
 		{582A6678-9740-4D6C-AF7D-EFAB25975251} = {23DCA6F0-3B54-4539-B70D-E6DBDA054643}
+		{EA90B665-D77C-401F-B0F4-EDE4F9225950} = {23DCA6F0-3B54-4539-B70D-E6DBDA054643}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F3BA7FD-5859-42E6-853A-5AAFEBB1FE09}
