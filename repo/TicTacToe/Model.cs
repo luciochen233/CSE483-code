@@ -14,6 +14,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 using System.Diagnostics;
+using System.Threading;
+using System.Diagnostics.Eventing.Reader;
 
 namespace TicTacToe
 {
@@ -21,10 +23,15 @@ namespace TicTacToe
     {
         public ObservableCollection<Tile> TileCollection;
         private static UInt32 _numTiles = 9;
-        private UInt32[] _buttonPresses = new UInt32[_numTiles];
-        Random _randomNumber = new Random();
+        //private UInt32[] _buttonPresses = new UInt32[_numTiles];
+        //Random _randomNumber = new Random();
+        //public event SimpleEventHandler UpdateTileEvent;
 
         private Ticlogic tic = new Ticlogic();
+        private bool online = false;
+        private bool no_update = false;
+        private int all_winner = -1;
+        int current_selection = -1;
         
 
         private String _statusText = "";
@@ -41,6 +48,7 @@ namespace TicTacToe
         private bool Cheat_flag = true;
         private int _side = 0;
         private double _slide = 0.0;
+        private bool Need_update = false;
         public double Slide
         {
             get { return _slide; }
@@ -50,12 +58,10 @@ namespace TicTacToe
                 {
                     _slide = value;
                     _side = (int)(Slide);
-                }
-                else
-                {
+                    //Update_Tile();
+                } else {
                     StatusText = "DON'T CHEAT";
                 }
-
                 Cheat_flag = true;
                 OnPropertyChanged("Slide");
             }
@@ -77,6 +83,9 @@ namespace TicTacToe
                     TileBackground = Brushes.Bisque
                 }) ;
             }
+            UpdateHandler = UpdateEvent;
+            UpdateHandler += IncomingUpdate;
+            Update_Tile();
         }
 
         public void Clear()
@@ -88,6 +97,12 @@ namespace TicTacToe
             {
                 t.TileLabel = " ";
             }
+            current_selection = -1;
+            no_update = false;
+            all_winner = -1;
+            StatusText = "RESET";
+            if (online) SendMessage();
+            
         }
 
         public void Switch_side()
@@ -98,37 +113,82 @@ namespace TicTacToe
 
         public bool UserSelection(String buttonSelected)
         {
+            StatusText = " ";
             Debug.Write("Button selected was " + buttonSelected + "\n");
             char[] _player = {'X', 'O'};
             Brush[] _ox_brush = {new SolidColorBrush(Colors.Red), new SolidColorBrush(Colors.Blue)};
 
             int index = int.Parse(buttonSelected);
+            if (online && current_selection != -1)
+            {
+                StatusText = "Waiting for Opponent";
+                return false;
+            }
+
+
+            current_selection = index;
+
+            
+
             int _row = index / 3;
             int _col = index % 3;
             if (tic.Mark(_player[_side], _row, _col))
             {
-                TileCollection[index].TileLabel = _player[_side].ToString();
-
-                //TileCollection[index].TileBrush = new SolidColorBrush(Color.FromArgb(255, (byte)_randomNumber.Next(255), (byte)_randomNumber.Next(255), (byte)_randomNumber.Next(255)));
-                TileCollection[index].TileBrush = _ox_brush[_side];
-                //StatusText = "User Selected Button " + index.ToString() + "\n";
-                StatusText = " ";
+                //Update_Tile();
+                if (UpdateHandler != null)
+                {
+                    UpdateHandler(this, new SimpleEventArgs(tic));
+                }
+                Need_update = true;
+                if(online) SendMessage();
                 return true;
             }
             else
             {
                 StatusText = "Try Again";
+                current_selection = -1;
             }
 
             //_buttonPresses[index]++;
             //TileCollection[index].TileLabel = _buttonPresses[index].ToString();
-
+            //if (online) SendMessage();
             return false;
+        }
+
+        public void Update_Tile()
+        {
+            
+            char[] _player = { 'X', 'O' };
+            Brush[] _ox_brush = { new SolidColorBrush(Colors.Red), new SolidColorBrush(Colors.Blue) };
+            
+            for (int row = 0; row < 3; row++)
+            {
+                for (int col = 0; col < 3; col++)
+                {
+                    int index = row * 3 + col;
+                    char tile_msg = tic._check[row, col];
+                    TileCollection[index].TileLabel = tile_msg.ToString();
+
+                    if (tile_msg == 'X')
+                    {
+                        TileCollection[index].TileBrush = _ox_brush[0];
+                    }
+                    else if (tile_msg == 'O')
+                    {
+                        TileCollection[index].TileBrush = _ox_brush[1];
+                    }
+                }
+            }
+            if (no_update && all_winner != -1)
+            {
+                Mark_Winner(all_winner);
+            }
         }
 
         public void Mark_Winner(int winner)
         {
             if (winner < 0 || winner > 7) return;
+            no_update = true;
             Brush _win_color = new SolidColorBrush(Colors.Gold);
             if(winner <3)
             {
@@ -178,6 +238,7 @@ namespace TicTacToe
             {
                 Console.WriteLine(__which_row);
                 Mark_Winner(__which_row);
+                all_winner = __which_row;
             }
             
 
@@ -189,10 +250,37 @@ namespace TicTacToe
                 case 'X': StatusText = "X WINS"; break;
             }
 
+            if (online) SendMessage();
             return __temp;
         }
 
-        
+        public delegate void UpdateTileHandler(object sender, SimpleEventArgs e);
+        public event UpdateTileHandler UpdateEvent;
+        public UpdateTileHandler UpdateHandler;
+        public void IncomingUpdate(object sender, SimpleEventArgs e)
+        {
+            Update_Tile();
+        }
+
+        //public void SendUpdate()
+        //{
+        //    if(UpdateHandler != null)
+        //    {
+        //        UpdateHandler(this, SimpleEventArgs(tic));
+        //    }
+        //}
+
+        public class SimpleEventArgs : EventArgs
+        {
+            Ticlogic tic_temp;
+            public SimpleEventArgs(Ticlogic t)
+            {
+                tic_temp = t;
+            }
+        }
+
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicTacToe
 {
+    [Serializable]
     class Ticlogic
     {
         public char[,] _check = new char[3,3];

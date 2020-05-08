@@ -12,12 +12,21 @@ using System.Diagnostics;
 
 // threading
 using System.Threading;
+using System.Windows.Threading;
 
 // byte data serialization
 using System.Runtime.Serialization.Formatters.Binary;
 
 // memory streams
 using System.IO;
+
+// observable collections
+using System.Collections.ObjectModel;
+
+
+// Brushes
+using System.Windows.Media;
+
 
 namespace TicTacToe
 {
@@ -45,12 +54,19 @@ namespace TicTacToe
         [Serializable]
         struct GameData
         {
-            public Ticlogic tic;
+            //public ObservableCollection<Tile> TileCollection;
+            //public Ticlogic tic;
+            public double slide;
+            public int which;
             public String message;
 
-            public GameData(Ticlogic t, int s, String msg)
+
+            public GameData(double s, int w, String msg)
             {
-                tic = t;
+                //TileCollection = Tile;
+                //tic = t;
+                slide = s;
+                which = w;
                 message = msg;
             }
         }
@@ -122,7 +138,10 @@ namespace TicTacToe
             // we make sure that the data in the boxes is in the correct format
             try
             {
-                gameData.tic = tic;
+                //gameData.tic = tic;
+                //gameData.TileCollection = TileCollection;
+                gameData.which = current_selection;
+                gameData.slide = Slide;
                 gameData.message = StatusText;
             }
             catch (System.Exception)
@@ -181,7 +200,7 @@ namespace TicTacToe
                 {
                     synchSocket.Send(data, data.Length, endPointSend);
                     _dataSocket.Receive(ref endPointRecieve);
-
+                    online = true;
                     // got something, so break out of loop
                     break;
                 }
@@ -201,6 +220,7 @@ namespace TicTacToe
                         //StatusText = StatusText + "Socket exception occurred. Unable to sync with other UDP peer.\n";
                         //StatusText = StatusText + ex.ToString();
                         StatusText = "NET ERROR";
+                        online = false;
                         return;
                     }
                 }
@@ -211,6 +231,7 @@ namespace TicTacToe
                     synchSocket.Close();
                     //StatusText = StatusText + "Error occurred. Unable to sync with other UDP peer.\n";
                     StatusText = "NET ERROR";
+                    online = false;
                     return;
                 }
 
@@ -235,6 +256,7 @@ namespace TicTacToe
             // got this far, so we received a response from player 2
             //StatusText = StatusText + DateTime.Now + ":" + " Other UDP peer has joined the session.\n";
             StatusText = "MATCH FOUND";
+            online = true;
             //HelpText = "Enter text in the Me box and hit the Send button.";
             //SendEnabled = true;
         }
@@ -247,7 +269,17 @@ namespace TicTacToe
                 try
                 {
                     // wait for data
-                    Byte[] receiveData = _dataSocket.Receive(ref endPoint);
+                    Byte[] receiveData;
+                    try
+                    {
+                        receiveData = _dataSocket.Receive(ref endPoint);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.Write(e.ToString());
+                        break;
+                    }
+                    
 
                     // check to see if this is synchronization data 
                     // ignore it. we should not recieve any sychronization
@@ -271,6 +303,73 @@ namespace TicTacToe
                     gameData = (GameData)formatter.Deserialize(stream);
 
                     // update view data through our bound properties
+                    //TileCollection = gameData.TileCollection;
+                    //tic = gameData.tic;
+                    Cheat_flag = false;
+                    Slide = gameData.slide;
+                    StatusText = gameData.message;
+                    if(gameData.message == "RESET")
+                    {
+                        tic.Clear();
+                        Cheat_flag = false;
+                        Slide = 0;
+                        current_selection = -1;
+                        no_update = false;
+                        all_winner = -1;
+                    }
+                    //if(gameData.message == "O WINS")
+                    //{
+                    //    Win();
+                    //}
+                    //if (gameData.message == "X WINS")
+                    //{
+                    //    Win();
+                    //}
+
+                    int index = gameData.which;
+                    if (index != -1)
+                    {
+                        current_selection = -1;
+                        char[] _player = { 'X', 'O' };
+                        Brush[] _ox_brush = { new SolidColorBrush(Colors.Red), new SolidColorBrush(Colors.Blue) };
+                        int _row = index / 3;
+                        int _col = index % 3;
+                        if (tic.Mark(_player[_side], _row, _col))
+                        {
+                            TileCollection[index].TileLabel = _player[_side].ToString();
+                            TileCollection[index].TileBackground = _ox_brush[_side];
+                        }
+                    }
+
+                    //char[] _player = { 'X', 'O' };
+                    //Brush[] _ox_brush = { new SolidColorBrush(Colors.Red), new SolidColorBrush(Colors.Blue) };
+
+                    //for (int row = 0; row < 3; row++)
+                    //{
+                    //    for (int col = 0; col < 3; col++)
+                    //    {
+                    //        int index = row * 3 + col;
+                    //        char tile_msg = gameData.tic._check[row, col];
+                    //        //TileCollection[index].TileLabel = tile_msg.ToString();
+                    //        if (tile_msg == 'X')
+                    //        {
+                    //            //TileCollection[index].TileBrush = new SolidColorBrush(Colors.Red);
+                    //            TileCollection[index].TileLabel = 'X'.ToString();
+                    //        }
+                    //        else if (tile_msg == 'O')
+                    //        {
+                    //            //TileCollection[index].TileBrush = new SolidColorBrush(Colors.Blue);
+                    //            TileCollection[index].TileLabel = 'O'.ToString();
+                    //        }
+                    //        else
+                    //        {
+                    //            //do nothing
+                    //        }
+                    //    }
+                    //}
+
+                    //Dispatcher.BeginInvoke(Update_Tile);
+                    //Update_Tile();
                     //MyFriendBox = gameData.message;
                     //Data1 = gameData.data1.ToString();
                     //Data2 = gameData.data2.ToString();
@@ -293,6 +392,18 @@ namespace TicTacToe
                 }
 
             }
+        }
+
+        /// <summary>
+        /// called when the view is closing to ensure we clean up our socket
+        /// if we don't, the application may hang on exit
+        /// </summary>
+        public void Model_Cleanup()
+        {
+            // important. Close socket or application will not exit correctly.
+            if (_dataSocket != null) _dataSocket.Close();
+            if (_receiveDataThread != null) _receiveDataThread.Abort();
+            online = false;
         }
 
     }

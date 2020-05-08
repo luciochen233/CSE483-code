@@ -11,6 +11,7 @@ using System.Windows.Media;
 
 namespace TicTacToe
 {
+
     public class Tile : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

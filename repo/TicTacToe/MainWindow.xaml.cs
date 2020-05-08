@@ -75,6 +75,16 @@ namespace TicTacToe
             _model.StatusText = "RESET";
         }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _model.Model_Cleanup();
+        }
+
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+            _model.Update_Tile();
+        }
+
         //private void Side_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         //{
         //    var a = e.NewValue;
